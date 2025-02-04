@@ -24,14 +24,14 @@ app.listen(process.env.PORT, () => {
             checkForTrelloUpdates(c);
 
         }, c.check_interval);
-        checkForTrelloUpdates(c);
 
         setInterval(() => {
             sendMessagesToDiscord(c);
         }, c.timer_duration);
-        sendMessagesToDiscord(c);
 
-        console.log("Initiated " + c.boardName + " connector");
+        checkForTrelloUpdates(c).then(() => {
+            sendMessagesToDiscord(c);
+        });
     }
     console.log(language.server_start + new Date().toLocaleTimeString());
 });

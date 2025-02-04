@@ -12,10 +12,8 @@ RUN npm install --omit=dev
 # Copy the rest of the application files
 COPY . /app
 
-# WIP: trying to get this to work
+# Create config directory
 RUN mkdir -p /app/config
-
-RUN ls -la /app/config
 
 # Command to start the application
 CMD ["node", "/app/server.js"]
