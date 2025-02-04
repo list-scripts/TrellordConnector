@@ -1,9 +1,14 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const fs = require('fs');
+const http = require('http');
+const https = require('https');
+const CacheableLookup = require('cacheable-lookup');
 const i18n = require('./scripts/language');
 const app = express();
-let serverStart;
+const cacheable = new CacheableLookup();
+cacheable.install(http.globalAgent);
+cacheable.install(https.globalAgent);
 
 require('dotenv').config();
 const trelloApiKey = process.env.TRELLO_API_KEY;
@@ -12,6 +17,7 @@ const language = i18n[process.env.LANGUAGE || 'en'];
 let messagesSended = [];
 let messagesQueue = [];
 let notSupportedActions = [];
+let serverStart;
 
 const config = JSON.parse(fs.readFileSync('./config/config.json', 'utf8'));
 
