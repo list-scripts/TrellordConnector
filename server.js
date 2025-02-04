@@ -121,6 +121,8 @@ async function createMessage(action, configs) {
     let messageFields = [];
     let actionNotSupported = false;
 
+    console.log("ACTION TYPE: " + action.type);
+
     switch (action.type) {
         case 'createCard':
             messageTitle = `${language.trello_create_card} "${action.data.card.name}"`;
